@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/estilo.css">
+	<title>Formulario</title>
+	</head> 	
+	<body>
+		<h5>REGISTRO DE ESTUDIANTES</h5>					
+		<form class="declara" action="guardar.php" id="contact_form" runat="server">
+	 
+		<div>
+			<!-- ul, li son etiquetas que se usan para realizar listas ordenadas -->
+			<ul>
+				
+				<li>Nombre:
+					<input type="text" name="nombre" placeholder="nombre" value="" maxlength="10" required />					
+				</li> 
+				
+				<li>Paterno:
+					<input type="text" name="paterno" placeholder="paterno" value="" maxlength="30" required />					
+				</li> 
+
+				<li>Materno:
+					<input type="text" name="materno" placeholder="materno" value="" maxlength="30" required />					
+				</li> 				
+				
+				<li> 
+					<button class="submit" type="submit">Enviar datos</button> 
+				</li>
+						
+			</ul> 
+		   </div>
+		   		<h5> db:  / tabla: estudiantes</h5>           		
+		</form>
+	</body> 
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<?php
+include_once 'config.inc.php';
+
+if (isset($_POST['subir'])) {
+    $nombre = $_FILES['archivo']['name'];
+    $tipo = $_FILES['archivo']['type'];
+    $tamano = $_FILES['archivo']['size'];
+    $ruta = $_FILES['archivo']['tmp_name'];
+    $destino = "archivos/" . $nombre;
+	
+    if ($nombre != "") {
+        if (copy($ruta, $destino)) {
+            $rfc= $_POST['rfc'];
+			$person= $_POST['persona'];
+			$declar= $_POST['declaracion'];
+            $descri= $_POST['descripcion'];
+			$period= $_POST['periodo'];
+			$fecha= $_POST['fecha'];
+            $db=new Conect_MySql();
+            $sql = "INSERT INTO administra(rfc,persona,declaracion,descripcion,periodo,fecha,tamano,tipo,nomarchivo) VALUES('$rfc','$person','$declar','$descri','$period','$fecha','$tamano','$tipo','$nombre')";
+            $query = $db->execute($sql);
+            if($query){
+                echo "Se guardo correctamente";
+            }
+        } else {
+            echo "Error";
+        }
+    }
+}
+?>     
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+	<head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
+		<title>HTML5 y CSS Formulario de Declara</title> 
+		<link href="css/estilo.css" rel="stylesheet" /> 
+	</head> 
+	
+	<body>
+		<h2>ALMACENAMIENTO DOCUMENTOS PDF</h2>
+		<h5>DECLARACIONES DE IMPUESTOS / REGISTRO Y CONSULTA</h5>
+					
+		<!-- FORMULARIO declara de este se desprenden las seudo clases-->
+		<form class="declara" method="post" action="guardar.php" id="contact_form" runat="server" enctype="multipart/form-data">
+	 
+		<div>
+			<!-- ul, li son etiquetas que se usan para realizar listas ordenadas -->
+			<ul>
+				<li> 
+
+					<span class="required_notification">* Datos requeridos</span>			 
+				</li> 
+				
+				<li> <label for="rfc">RFC</label> 
+					<input type="text"  name="rfc"  placeholder="10 o 13 caracteres" maxlength="10" required />
+					<!-- maxlength="30" -->
+					<span class="form_hint">Formato correcto: "AAAA999999"</span>
+				</li> 
+				
+				<li><label for="persona">Declaraci&oacute;n</label> 
+					
+					<select name="persona" required>
+					   <option value="">opci&oacute;n</option> 
+					   <option value="fisica">fisicas</option> 
+					   <option value="moral">morales</option>
+					</select> 
+				</li> 
+
+				<li><label for="declaracion`">Tipo de Declaraci&oacute;n</label> 
+					
+						<select name="declaracion" required>
+						   <option value="">opci&oacute;n</option> 
+						   <option value="mensual">mensual</option> 
+						   <option value="anual">anual</option>
+						   <option value="complementaria">complementaria</option>	
+						</select>				
+				</li>
+				
+				<li><label for="periodo">Per&iacute;odo que presenta</label>
+				   
+					<select name="periodo" required>
+					   <option value="">opci&oacute;n</option> 
+					   <option value="enero">enero</option> 
+					   <option value="febrero">febrero</option>
+					   <option value="marzo">marzo</option> 
+					   <option value="abril">abril</option>
+					   <option value="mayo">mayo</option> 
+					   <option value="junio">junio</option>
+					   <option value="julio">julio</option> 
+					   <option value="agosto">agosto</option>
+					   <option value="septiembre">septiembre</option> 
+					   <option value="octubre">octubre</option>
+					   <option value="noviembre">noviembre</option> 
+					   <option value="diciembre">diciembre</option>							
+					</select>
+				</li>
+				
+				<li><label for="fecha">Fecha</label> 
+					<input type="date" name="fecha" step="1" min="2017-01-01" max="2017-12-31" value= "<?php echo fecha('Y-m-d');?>" maxlength="10" >
+				</li>				
+				
+				
+				<li><label for="message">Descripci&oacute;n</label> 
+					<textarea name="message" cols="40" rows="2" required></textarea> 
+				</li>
+				
+				<li><label for="documento">Documento</label> 
+					<span><input type="file" name="archivo">
+				</li>
+				
+				<li><label for="message">Guardar</label> 
+					<input type="submit" value="subir" name="subir">
+				</li>
+				
+				<li><label for="message">Consultar Archivo</label>
+					<a title="declaraciones" href="lista.php"><img width="50px" src="img/capetas.png" alt="declaraciones" /></a>
+					
+				</li>								
+				
+				<li> 
+					<button class="submit" type="submit">Enviar datos</button> 
+				</li>
+
+								
+			</ul> 
+		   </div>
+		   		<h5> db:  / tabla: administra</h5>           		
+           		<h5> SE HA RESTRINGIDO LOS CONTENIDOS DEL DIRECTORIO  </h5> 
+		</form>
+	</body> 
+</html>
